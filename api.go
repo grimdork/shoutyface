@@ -24,15 +24,6 @@ func (srv *Shoutyface) PostMessage(w http.ResponseWriter, r *http.Request) {
 // All of these calls require an amin token.
 //
 
-func (srv *Shoutyface) isAdmin(r *http.Request) bool {
-	token := r.Header.Get("token")
-	if token == "" || srv.GetTokenUser(token) != "admin" {
-		return false
-	}
-
-	return true
-}
-
 // GetUsers from database.
 func (srv *Shoutyface) GetUsers(w http.ResponseWriter, r *http.Request) {
 	if !srv.isAdmin(r) {
