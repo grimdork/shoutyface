@@ -32,8 +32,7 @@ func (srv *Shoutyface) tokencheck(h http.Handler) http.Handler {
 
 func (srv *Shoutyface) admintokencheck(h http.Handler) http.Handler {
 	fn := func(w http.ResponseWriter, r *http.Request) {
-		token := r.Header.Get("token")
-		if token == "" || srv.GetTokenUser(token) == "" {
+		if !srv.isAdmin(r) {
 			http.Error(w, "", http.StatusForbidden)
 			return
 		}
