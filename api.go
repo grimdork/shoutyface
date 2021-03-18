@@ -26,19 +26,10 @@ func (srv *Shoutyface) PostMessage(w http.ResponseWriter, r *http.Request) {
 
 // GetUsers from database.
 func (srv *Shoutyface) GetUsers(w http.ResponseWriter, r *http.Request) {
-	if !srv.isAdmin(r) {
-		http.Error(w, http.StatusText(http.StatusForbidden), http.StatusForbidden)
-		return
-	}
 }
 
 // PostUser adds a user to the database.
 func (srv *Shoutyface) PostUser(w http.ResponseWriter, r *http.Request) {
-	if !srv.isAdmin(r) {
-		http.Error(w, http.StatusText(http.StatusForbidden), http.StatusForbidden)
-		return
-	}
-
 	username := r.Header.Get("username")
 	email := r.Header.Get("email")
 	if username == "" || email == "" {
@@ -58,11 +49,6 @@ func (srv *Shoutyface) PostUser(w http.ResponseWriter, r *http.Request) {
 
 // DeleteUser from database.
 func (srv *Shoutyface) DeleteUser(w http.ResponseWriter, r *http.Request) {
-	if !srv.isAdmin(r) {
-		http.Error(w, http.StatusText(http.StatusForbidden), http.StatusForbidden)
-		return
-	}
-
 	username := r.Header.Get("username")
 	if username == "" {
 		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
@@ -81,11 +67,6 @@ func (srv *Shoutyface) DeleteUser(w http.ResponseWriter, r *http.Request) {
 
 // GetSubs lists all subscriptions for a user.
 func (srv *Shoutyface) GetSubs(w http.ResponseWriter, r *http.Request) {
-	if !srv.isAdmin(r) {
-		http.Error(w, http.StatusText(http.StatusForbidden), http.StatusForbidden)
-		return
-	}
-
 	username := r.Header.Get("username")
 	if username == "" {
 		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
@@ -95,11 +76,6 @@ func (srv *Shoutyface) GetSubs(w http.ResponseWriter, r *http.Request) {
 
 // PostSub subscribes a user to a channel.
 func (srv *Shoutyface) PostSub(w http.ResponseWriter, r *http.Request) {
-	if !srv.isAdmin(r) {
-		http.Error(w, http.StatusText(http.StatusForbidden), http.StatusForbidden)
-		return
-	}
-
 	username := r.Header.Get("username")
 	channel := r.Header.Get("channel")
 	if username == "" || channel == "" {
@@ -119,11 +95,6 @@ func (srv *Shoutyface) PostSub(w http.ResponseWriter, r *http.Request) {
 
 // DeleteSub unsubscribes a user from a channel.
 func (srv *Shoutyface) DeleteSub(w http.ResponseWriter, r *http.Request) {
-	if !srv.isAdmin(r) {
-		http.Error(w, http.StatusText(http.StatusForbidden), http.StatusForbidden)
-		return
-	}
-
 	username := r.Header.Get("username")
 	channel := r.Header.Get("channel")
 	if username == "" || channel == "" {
