@@ -9,6 +9,7 @@ require (
 	github.com/go-chi/chi v1.5.4
 	github.com/go-chi/httprate v0.4.0
 	github.com/grimdork/sweb v0.9.0
+	github.com/grimdork/xos v0.1.0
 	github.com/jackc/pgproto3/v2 v2.0.7 // indirect
 	github.com/jackc/pgtype v1.6.2
 	github.com/jackc/pgx/v4 v4.10.1

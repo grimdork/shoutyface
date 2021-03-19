@@ -66,6 +66,8 @@ github.com/gopherjs/gopherjs v0.0.0-20181017120253-0766667cb4d1/go.mod h1:wJfORR
 github.com/gregjones/httpcache v0.0.0-20180305231024-9cad4c3443a7/go.mod h1:FecbI9+v66THATjSRHfNgh1IVFe/9kFxbXtjV0ctIMA=
 github.com/grimdork/sweb v0.9.0 h1:esd+gu4zz4HZ79MPWICWyXur0CoIuP4OwozAYlM3+P4=
 github.com/grimdork/sweb v0.9.0/go.mod h1:cbz1eOWmll3DuT2B+3MjPEBQnISMWCjSWVqZV1iIbro=
+github.com/grimdork/xos v0.1.0 h1:zC2ll7sTgR8Dw0XtQO8BraJ400u8Wh+9x7pMAla/v0o=
+github.com/grimdork/xos v0.1.0/go.mod h1:8y/pSIr9T8pZUtCQW08Me3N0j3XFGJRrhSMn4YAUW/s=
 github.com/grpc-ecosystem/grpc-gateway v1.5.0/go.mod h1:RSKVYQBd5MCa4OVpNdGskqpgL2+G+NZTnrVHpWWfpdw=
 github.com/jackc/chunkreader v1.0.0 h1:4s39bBR8ByfqH+DKm8rQA3E1LHZWB9XWcrz8fqaZbe0=
 github.com/jackc/chunkreader v1.0.0/go.mod h1:RT6O25fNZIuasFJRyZ4R/Y2BbhasbmZXF9QQ7T3kePo=

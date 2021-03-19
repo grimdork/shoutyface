@@ -14,7 +14,7 @@ func (srv *Shoutyface) RunMailQueue(q chan interface{}) {
 	for {
 		select {
 		case msg := <-srv.mailqueue:
-			emails := srv.GetSubscribers(msg.Channel)
+			emails := srv.listSubscribers(msg.Channel)
 			if len(emails) > 0 {
 				srv.L("Message to channel %s of severity %s, titled '%s'", msg.Channel, msg.Severity, msg.Title)
 				subject := fmt.Sprintf("[%s] %s", msg.Severity, msg.Title)

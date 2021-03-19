@@ -4,21 +4,21 @@ import (
 	"context"
 )
 
-// AddUser to alert system.
-func (srv *Shoutyface) AddUser(name, email string) error {
+// addUser to database.
+func (srv *Shoutyface) addUser(name, email string) error {
 	sql := "insert into users(name,email) values($1,$2)"
 	_, err := srv.dbp.Exec(context.Background(), sql, name, email)
 	return err
 }
 
-// deleteUser from database.
-func (srv *Shoutyface) deleteUser(name string) error {
+// rmUser deletes a user from the database.
+func (srv *Shoutyface) rmUser(name string) error {
 	_, err := srv.dbp.Exec(context.Background(), "delete from users where name=$1 cascade;", name)
 	return err
 }
 
-// GetSubscribers retuns the e-mail addresses of all subscribers to a channel.
-func (srv *Shoutyface) GetSubscribers(channel string) []string {
+// listSubscribers retuns the e-mail addresses of all subscribers to a channel.
+func (srv *Shoutyface) listSubscribers(channel string) []string {
 	emails := []string{}
 	sql := "select u.email from users u inner join channels c on c.name=$1 inner join subs s on s.cid=c.id and s.uid=u.id;"
 	rows, err := srv.dbp.Query(context.Background(), sql, channel)

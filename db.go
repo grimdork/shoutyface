@@ -55,7 +55,7 @@ func (srv *Shoutyface) createTables() error {
 	admintoken := os.Getenv("ADMIN_TOKEN")
 	if admintoken != "" {
 		println(admintoken)
-		err = srv.AddUser("admin", os.Getenv("ADMIN_EMAIL"))
+		err = srv.addUser("admin", os.Getenv("ADMIN_EMAIL"))
 		if err != nil {
 			return err
 		}

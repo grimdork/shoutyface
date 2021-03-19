@@ -37,7 +37,7 @@ func (srv *Shoutyface) PostUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err := srv.AddUser(username, email)
+	err := srv.addUser(username, email)
 	if err != nil {
 		srv.E("Error adding user: %s", err.Error())
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -55,7 +55,7 @@ func (srv *Shoutyface) DeleteUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err := srv.deleteUser(username)
+	err := srv.rmUser(username)
 	if err != nil {
 		srv.E("Error deleting user: %s", err.Error())
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -65,8 +65,8 @@ func (srv *Shoutyface) DeleteUser(w http.ResponseWriter, r *http.Request) {
 	http.Error(w, http.StatusText(http.StatusAccepted), http.StatusAccepted)
 }
 
-// GetSubs lists all subscriptions for a user.
-func (srv *Shoutyface) GetSubs(w http.ResponseWriter, r *http.Request) {
+// GetSubscriptions lists all subscriptions for a user.
+func (srv *Shoutyface) GetSubscriptions(w http.ResponseWriter, r *http.Request) {
 	username := r.Header.Get("username")
 	if username == "" {
 		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
@@ -75,7 +75,7 @@ func (srv *Shoutyface) GetSubs(w http.ResponseWriter, r *http.Request) {
 }
 
 // PostSub subscribes a user to a channel.
-func (srv *Shoutyface) PostSub(w http.ResponseWriter, r *http.Request) {
+func (srv *Shoutyface) PostSubscribe(w http.ResponseWriter, r *http.Request) {
 	username := r.Header.Get("username")
 	channel := r.Header.Get("channel")
 	if username == "" || channel == "" {
@@ -93,8 +93,8 @@ func (srv *Shoutyface) PostSub(w http.ResponseWriter, r *http.Request) {
 	http.Error(w, http.StatusText(http.StatusCreated), http.StatusCreated)
 }
 
-// DeleteSub unsubscribes a user from a channel.
-func (srv *Shoutyface) DeleteSub(w http.ResponseWriter, r *http.Request) {
+// DeleteSubscription unsubscribes a user from a channel.
+func (srv *Shoutyface) DeleteSubscription(w http.ResponseWriter, r *http.Request) {
 	username := r.Header.Get("username")
 	channel := r.Header.Get("channel")
 	if username == "" || channel == "" {
@@ -110,4 +110,25 @@ func (srv *Shoutyface) DeleteSub(w http.ResponseWriter, r *http.Request) {
 	}
 
 	http.Error(w, http.StatusText(http.StatusAccepted), http.StatusAccepted)
+}
+
+func (srv *Shoutyface) PostChannel(w http.ResponseWriter, r *http.Request) {
+	channel := r.Header.Get("channel")
+	if channel == "" {
+		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+		return
+	}
+}
+
+// DeleteChannel fom database.
+func (srv *Shoutyface) DeleteChannel(w http.ResponseWriter, r *http.Request) {
+	channel := r.Header.Get("channel")
+	if channel == "" {
+		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+		return
+	}
+}
+
+// GetChannels available.
+func (srv *Shoutyface) GetChannels(w http.ResponseWriter, r *http.Request) {
 }
