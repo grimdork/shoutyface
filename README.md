@@ -16,4 +16,4 @@ For mail, these variables need to be defined:
 - MAILPORT: SMTP port. Default 587.
 - MAILUSER: SMTP username.
 - MAILPASS: SMTP password.
-- MAILFROM: E-mail address to send general mail from.
+- MAILFROM: E-mail address to send alerts from.
