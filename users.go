@@ -13,7 +13,7 @@ func (srv *Shoutyface) addUser(name, email string) error {
 
 // rmUser deletes a user from the database.
 func (srv *Shoutyface) rmUser(name string) error {
-	_, err := srv.dbp.Exec(context.Background(), "delete from users where name=$1 cascade;", name)
+	_, err := srv.dbp.Exec(context.Background(), "delete from users where name=$1;", name)
 	return err
 }
 

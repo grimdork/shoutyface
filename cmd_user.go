@@ -40,6 +40,23 @@ func (cmd *CmdUserAdd) Run(in []string) error {
 		return opt.ErrUsage
 	}
 
+	headers := map[string]string{
+		"username": cmd.Name,
+		"email":    cmd.Email,
+	}
+
+	res, err := Request(http.MethodPost, "user", headers)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error adding user: %s\n", err.Error())
+		return err
+	}
+
+	if res.StatusCode != http.StatusCreated {
+		fmt.Fprintf(os.Stderr, "Error adding user: %s\n", http.StatusText(res.StatusCode))
+		return nil
+	}
+
+	println("User created.")
 	return nil
 }
 
@@ -50,6 +67,7 @@ func (cmd *CmdUserAdd) Run(in []string) error {
 // CmdUserRemove options.
 type CmdUserRemove struct {
 	opt.DefaultHelp
+	Name string `placeholder:"NAME" help:"Username of the user to be removed."`
 }
 
 // Run remove.
@@ -58,6 +76,22 @@ func (cmd *CmdUserRemove) Run(in []string) error {
 		return opt.ErrUsage
 	}
 
+	headers := map[string]string{
+		"username": cmd.Name,
+	}
+
+	res, err := Request(http.MethodDelete, "user", headers)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error removing user: %s\n", err.Error())
+		return err
+	}
+
+	if res.StatusCode != http.StatusOK {
+		fmt.Fprintf(os.Stderr, "Error removing user: %s\n", http.StatusText(res.StatusCode))
+		return nil
+	}
+
+	println("User removed.")
 	return nil
 }
 
@@ -76,18 +110,11 @@ func (cmd *CmdUserList) Run(in []string) error {
 		return opt.ErrUsage
 	}
 
-	cfg, err := loadConfig()
-	if err != nil {
-		return err
-	}
-
-	url := cfg.ServerURL + "/api/users"
 	var list []User
 	headers := make(map[string]string)
-	headers["token"] = cfg.AdminToken
-	res, err := RequestJSON(http.MethodGet, url, headers, &list)
+	res, err := RequestJSON(http.MethodGet, "users", headers, &list)
 	if err != nil {
-		fmt.Printf("Status: %d\n", res.StatusCode)
+		fmt.Fprintf(os.Stderr, "Error fetching data: %s\nStatus: %d\n", err.Error(), res.StatusCode)
 		return err
 	}
 

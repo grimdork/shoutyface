@@ -7,9 +7,43 @@ import (
 	"time"
 )
 
+// Request an endpoint without a response body.
+func Request(method, path string, headers map[string]string) (*http.Response, error) {
+	cfg, err := loadConfig()
+	if err != nil {
+		return nil, err
+	}
+
+	url := cfg.ServerURL + "/api/" + path
+	headers["token"] = cfg.AdminToken
+	req, err := http.NewRequest(method, url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	for k, v := range headers {
+		req.Header.Set(k, v)
+	}
+
+	c := &http.Client{Timeout: time.Second * 10}
+	res, err := c.Do(req)
+	if err != nil {
+		return res, err
+	}
+
+	return res, res.Body.Close()
+}
+
 // RequestJSON requests an endpoint and converts a JSON response.
 // The response body will be closed.
-func RequestJSON(method, url string, headers map[string]string, out interface{}) (*http.Response, error) {
+func RequestJSON(method, path string, headers map[string]string, out interface{}) (*http.Response, error) {
+	cfg, err := loadConfig()
+	if err != nil {
+		return nil, err
+	}
+
+	url := cfg.ServerURL + "/api/" + path
+	headers["token"] = cfg.AdminToken
 	req, err := http.NewRequest(method, url, nil)
 	if err != nil {
 		return nil, err

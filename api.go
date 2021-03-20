@@ -65,8 +65,6 @@ func (srv *Shoutyface) DeleteUser(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-
-	http.Error(w, http.StatusText(http.StatusAccepted), http.StatusAccepted)
 }
 
 // GetSubscriptions lists all subscriptions for a user.
