@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"net/http"
 
 	"github.com/francoispqt/gojay"
@@ -26,6 +27,9 @@ func (srv *Shoutyface) PostMessage(w http.ResponseWriter, r *http.Request) {
 
 // GetUsers from database.
 func (srv *Shoutyface) GetUsers(w http.ResponseWriter, r *http.Request) {
+	users := srv.listUsers()
+	data, _ := json.Marshal(users)
+	w.Write([]byte(data))
 }
 
 // PostUser adds a user to the database.

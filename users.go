@@ -17,6 +17,27 @@ func (srv *Shoutyface) rmUser(name string) error {
 	return err
 }
 
+// User structure.
+type User struct {
+	Name  string `json:"name"`
+	Email string `json:"email"`
+}
+
+func (srv *Shoutyface) listUsers() []User {
+	rows, err := srv.dbp.Query(context.Background(), "select name,email from users;")
+	if err != nil {
+		return nil
+	}
+
+	var users []User
+	for rows.Next() {
+		u := User{}
+		rows.Scan(&u.Name, &u.Email)
+		users = append(users, u)
+	}
+	return users
+}
+
 // listSubscribers retuns the e-mail addresses of all subscribers to a channel.
 func (srv *Shoutyface) listSubscribers(channel string) []string {
 	emails := []string{}
