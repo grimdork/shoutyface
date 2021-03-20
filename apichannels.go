@@ -38,7 +38,6 @@ func (srv *Shoutyface) DeleteChannel(w http.ResponseWriter, r *http.Request) {
 
 	ct, err := srv.dbp.Exec(context.Background(), "delete from channels where name=$1;", channel)
 	if err != nil || ct.RowsAffected() == 0 {
-
 		http.Error(w, "", http.StatusNotFound)
 		return
 	}
@@ -68,6 +67,5 @@ func (srv *Shoutyface) GetChannels(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data, _ := json.Marshal(channels)
-	println(data)
 	w.Write([]byte(data))
 }

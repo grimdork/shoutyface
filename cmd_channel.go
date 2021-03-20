@@ -1,9 +1,7 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
-	"os"
 
 	"github.com/Urethramancer/signor/opt"
 )
@@ -41,7 +39,7 @@ func (cmd *CmdChannelAdd) Run(in []string) error {
 
 	res, err := Request(http.MethodPost, "channel", headers)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error adding channel: %s\n", err.Error())
+		pr("Error adding channel: %s\n", err.Error())
 		return err
 	}
 
@@ -51,7 +49,7 @@ func (cmd *CmdChannelAdd) Run(in []string) error {
 	}
 
 	if res.StatusCode != http.StatusOK {
-		fmt.Fprintf(os.Stderr, "Error adding channel: %s\n", http.StatusText(res.StatusCode))
+		pr("Error adding channel: %s\n", http.StatusText(res.StatusCode))
 		return nil
 	}
 
@@ -81,7 +79,7 @@ func (cmd *CmdChannelRemove) Run(in []string) error {
 
 	res, err := Request(http.MethodDelete, "channel", headers)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error removing channel: %s\n", err.Error())
+		pr("Error removing channel: %s\n", err.Error())
 		return err
 	}
 
@@ -110,7 +108,7 @@ func (cmd *CmdChannelList) Run(in []string) error {
 	headers := make(map[string]string)
 	res, err := RequestJSON(http.MethodGet, "channels", headers, &list)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error listing channels: %s\nStatus: %d\n", err.Error(), res.StatusCode)
+		pr("Error listing channels: %s\nStatus: %d\n", err.Error(), res.StatusCode)
 		return err
 	}
 

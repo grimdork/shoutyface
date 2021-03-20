@@ -47,12 +47,12 @@ func (cmd *CmdUserAdd) Run(in []string) error {
 
 	res, err := Request(http.MethodPost, "user", headers)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error adding user: %s\n", err.Error())
+		pr("Error adding user: %s\n", err.Error())
 		return err
 	}
 
 	if res.StatusCode != http.StatusCreated {
-		fmt.Fprintf(os.Stderr, "Error adding user: %s\n", http.StatusText(res.StatusCode))
+		pr("Error adding user: %s\n", http.StatusText(res.StatusCode))
 		return nil
 	}
 
@@ -82,12 +82,12 @@ func (cmd *CmdUserRemove) Run(in []string) error {
 
 	res, err := Request(http.MethodDelete, "user", headers)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error removing user: %s\n", err.Error())
+		pr("Error removing user: %s\n", err.Error())
 		return err
 	}
 
 	if res.StatusCode != http.StatusOK {
-		fmt.Fprintf(os.Stderr, "Error removing user: %s\n", http.StatusText(res.StatusCode))
+		pr("Error removing user: %s\n", http.StatusText(res.StatusCode))
 		return nil
 	}
 
@@ -114,7 +114,7 @@ func (cmd *CmdUserList) Run(in []string) error {
 	headers := make(map[string]string)
 	res, err := RequestJSON(http.MethodGet, "users", headers, &list)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error fetching data: %s\nStatus: %d\n", err.Error(), res.StatusCode)
+		pr("Error fetching data: %s\nStatus: %d\n", err.Error(), res.StatusCode)
 		return err
 	}
 
@@ -124,7 +124,7 @@ func (cmd *CmdUserList) Run(in []string) error {
 	}
 
 	buf := strings.Builder{}
-	buf.WriteString("Username\tE-mail\n")
+	buf.WriteString("Username:\tE-mail:\n")
 	for _, u := range list {
 		buf.WriteString(u.Name)
 		buf.WriteByte('\t')
