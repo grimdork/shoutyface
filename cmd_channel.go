@@ -26,7 +26,7 @@ func (cmd *CmdChannel) Run(in []string) error {
 // CmdUserAdd options.
 type CmdChannelAdd struct {
 	opt.DefaultHelp
-	Name string `placeholder:"NAME" help:"Username of the new user."`
+	Name string `placeholder:"NAME" help:"Name of the new channel."`
 }
 
 // Run add.
@@ -66,7 +66,7 @@ func (cmd *CmdChannelAdd) Run(in []string) error {
 // CmdChannelRemove options.
 type CmdChannelRemove struct {
 	opt.DefaultHelp
-	Name string `placeholder:"NAME" help:"Name of the user to be removed."`
+	Name string `placeholder:"NAME" help:"Name of the channel to be removed."`
 }
 
 // Run remove.
@@ -102,16 +102,10 @@ func (cmd *CmdChannelRemove) Run(in []string) error {
 //
 
 // CmdChannelList options.
-type CmdChannelList struct {
-	opt.DefaultHelp
-}
+type CmdChannelList struct{}
 
 // Run list.
 func (cmd *CmdChannelList) Run(in []string) error {
-	if cmd.Help {
-		return opt.ErrUsage
-	}
-
 	var list []Channel
 	headers := make(map[string]string)
 	res, err := RequestJSON(http.MethodGet, "channels", headers, &list)
