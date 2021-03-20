@@ -79,13 +79,13 @@ func NewServer() (*Shoutyface, error) {
 		r.Post("/user", srv.PostUser)
 		r.Delete("/user", srv.DeleteUser)
 
-		r.Post("/subscribe", srv.PostSubscribe)
-		r.Delete("/subscribe", srv.DeleteSubscription)
-		r.Get("/subscriptions", srv.GetSubscriptions)
-
 		r.Post("/channel", srv.PostChannel)
 		r.Delete("/channel", srv.DeleteChannel)
 		r.Get("/channels", srv.GetChannels)
+
+		r.Post("/subscribe", srv.PostSubscribe)
+		r.Delete("/subscribe", srv.DeleteSubscription)
+		r.Get("/subscriptions", srv.GetSubscriptions)
 	})
 	return srv, nil
 }

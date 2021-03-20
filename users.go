@@ -29,6 +29,7 @@ func (srv *Shoutyface) listUsers() []User {
 		return nil
 	}
 
+	defer rows.Close()
 	var users []User
 	for rows.Next() {
 		u := User{}
@@ -48,6 +49,7 @@ func (srv *Shoutyface) listSubscribers(channel string) []string {
 		return nil
 	}
 
+	defer rows.Close()
 	var m string
 	for rows.Next() {
 		err = rows.Scan(&m)

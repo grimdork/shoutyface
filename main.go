@@ -31,7 +31,11 @@ func main() {
 			return
 		}
 
-		fmt.Printf("Error running command: %s\n", err.Error())
+		pr("Error running command: %s", err.Error())
 		os.Exit(2)
 	}
+}
+
+func pr(format string, v ...interface{}) {
+	fmt.Printf(format+"\n", v...)
 }

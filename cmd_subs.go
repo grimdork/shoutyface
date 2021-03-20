@@ -6,12 +6,11 @@ import (
 
 type CmdSubs struct {
 	opt.DefaultHelp
+	Add    CmdChannelAdd    `command:"add" help:"Add a channel."`
+	Remove CmdChannelRemove `command:"remove" aliases:"rm" help:"Remove a channel."`
+	List   CmdChannelList   `command:"list" aliases:"ls" help:"List channels."`
 }
 
 func (cmd *CmdSubs) Run(in []string) error {
-	if cmd.Help {
-		return opt.ErrUsage
-	}
-
-	return nil
+	return opt.ErrUsage
 }
